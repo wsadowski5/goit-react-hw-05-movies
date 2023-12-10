@@ -38,8 +38,7 @@ export const fetchMovieCredits = async movieId => {
     `https://api.themoviedb.org/3/movie/${movieId}/credits?language=en-US`,
     options
   );
-  console.log(response.data.results);
-  return response;
+  return response.data;
 };
 
 export const fetchMovieReviews = async movieId => {
@@ -47,6 +46,6 @@ export const fetchMovieReviews = async movieId => {
     `https://api.themoviedb.org/3/movie/${movieId}/reviews?language=en-US&page=1`,
     options
   );
-  console.log(response.data.results);
-  return response;
+
+  return response.data.results
 };

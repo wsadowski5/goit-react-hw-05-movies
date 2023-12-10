@@ -1,18 +1,19 @@
-import { Outlet, useParams, NavLink } from 'react-router-dom';
+import { Outlet, useParams, NavLink, useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { fetchMovieDetails } from 'components/Api/Api';
+import { fetchMovieDetails } from 'Api/Api';
 
 export const MovieDetails = () => {
   const { movieId } = useParams();
-
   const [movieData, setMovieData] = useState({});
+
+const location = useLocation()
+const from = location.state?.from ?? "/"
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const movieDetails = await fetchMovieDetails(movieId);
         setMovieData(movieDetails);
-        console.log(movieDetails);
       } catch (error) {
         console.error('Błąd podczas pobierania danych o filmach:', error);
       }
@@ -22,6 +23,7 @@ export const MovieDetails = () => {
 
   return (
     <div>
+      <NavLink to={from}> Go back</NavLink>
       {movieData.poster_path && (
         <div>
           <img

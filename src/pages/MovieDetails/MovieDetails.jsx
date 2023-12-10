@@ -1,13 +1,14 @@
 import { Outlet, useParams, NavLink, useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { fetchMovieDetails } from 'Api/Api';
+import { MovieDescription } from 'components/MovieDescription/MovieDescription';
 
-export const MovieDetails = () => {
+const MovieDetails = () => {
   const { movieId } = useParams();
   const [movieData, setMovieData] = useState({});
 
-const location = useLocation()
-const from = location.state?.from ?? "/"
+  const location = useLocation();
+  const from = location.state?.from ?? '/';
 
   useEffect(() => {
     const fetchData = async () => {
@@ -24,33 +25,21 @@ const from = location.state?.from ?? "/"
   return (
     <div>
       <NavLink to={from}> Go back</NavLink>
-      {movieData.poster_path && (
-        <div>
-          <img
-            src={`https://image.tmdb.org/t/p/w500/${movieData.poster_path}`}
-            alt={`${movieData.original_title} poster`}
-            width="200"
-          />
-        </div>
-      )}
 
-      <div>
-        <h2>{movieData.title} </h2>
-        <p>User Score: {movieData.vote_average}</p>
-        <h3>Ovierviwe</h3>
-        <p>{movieData.overview}</p>
-        <h4>Geners</h4>
-        <ul>
-          {movieData.genres &&
-            movieData.genres.map(genre => <li key={genre.id}>{genre.name}</li>)}
-        </ul>
-      </div>
-<ul>
-    
-    <NavLink to="Cast"><li>Cast</li></NavLink>
-      <NavLink to="Reviews"><li>Reviews</li></NavLink></ul>
-      
+      <MovieDescription movieData={movieData}> </MovieDescription>
+
+      <ul>
+        <NavLink to="Cast">
+          <li>Cast</li>
+        </NavLink>
+        <NavLink to="Reviews">
+          <li>Reviews</li>
+        </NavLink>
+      </ul>
+
       <Outlet />
     </div>
   );
 };
+
+export default MovieDetails;

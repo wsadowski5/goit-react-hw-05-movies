@@ -1,13 +1,11 @@
 import { useState, useEffect } from 'react';
 import { fetchTrending } from 'Api/Api';
-import { NavLink, useLocation } from 'react-router-dom';
 
-export const Home = () => {
+import { MoviesList } from '../../components/MoviesList/MoviesList';
+
+const Home = () => {
   const [trending, setTrending] = useState([]);
   const [loading, setLoading] = useState(true);
-
-  const location = useLocation();
-
 
   useEffect(() => {
     const fetchData = async () => {
@@ -24,18 +22,8 @@ export const Home = () => {
   }, []);
 
   return (
-    <div>
-      {loading ? (
-        <p>Loading...</p>
-      ) : (
-        <ul>
-          {trending.map((movie) => (
-            <NavLink to={`/movies/${movie.id}`} key={movie.id} state={{from: location}}>
-              <li >{movie.title || movie.name}</li>
-            </NavLink>
-          ))}
-        </ul>
-      )}
-    </div>
+    <div>{loading ? <p>Loading...</p> : <MoviesList movies={trending} />}</div>
   );
 };
+
+export default Home;

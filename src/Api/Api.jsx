@@ -30,7 +30,7 @@ export const fetchMovieDetails = async movieId => {
     `https://api.themoviedb.org/3/movie/${movieId}?language=en-US`,
     options
   );
-  return response.data
+  return response.data;
 };
 
 export const fetchMovieCredits = async movieId => {
@@ -47,5 +47,5 @@ export const fetchMovieReviews = async movieId => {
     options
   );
 
-  return response.data.results
+  return response.data.results;
 };
